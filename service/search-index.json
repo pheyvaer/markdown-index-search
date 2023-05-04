@@ -1,0 +1,6 @@
+{
+  "reg": "{\"http://localhost:3000/notes/test1\":1,\"http://localhost:3000/notes/test3\":1,\"http://localhost:3000/notes/test2\":1,\"http://localhost:3000/notes/pkmn/oddish\":1,\"http://localhost:3000/notes/pkmn/wooper\":1}",
+  "cfg": "{\"doc\":0,\"opt\":1}",
+  "map": "[{},{\"test\":[\"http://localhost:3000/notes/test1\",\"http://localhost:3000/notes/test3\",\"http://localhost:3000/notes/test2\"],\"oddish\":[\"http://localhost:3000/notes/pkmn/oddish\"],\"wooper\":[\"http://localhost:3000/notes/pkmn/wooper\"]},{\"1\":[\"http://localhost:3000/notes/test1\"],\"2\":[\"http://localhost:3000/notes/test2\"],\"3\":[\"http://localhost:3000/notes/test3\"]},{},{},{},{},{},{}]",
+  "ctx": "[{}]"
+}

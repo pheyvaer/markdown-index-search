@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start:test-pod": "cd test-pod && npx community-solid-server -c @css:config/file-no-setup.json"
+  },
+  "dependencies": {
+    "@solid/community-server": "^6.0.0"
+  }
+}
