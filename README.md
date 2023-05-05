@@ -9,7 +9,7 @@ The service iterates over all Markdown resources in a container.
 It generates the search index and stores in the pod.
 The service needs to run every time the contents of the Markdown files change.
 The Web app loads this index and 
-allows users to find for the relevant Markdown resources by searching for "office".
+allows users to find the relevant Markdown resources by searching for "office".
 
 ## Service
 
