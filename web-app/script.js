@@ -1,5 +1,3 @@
-const searchIndexResource = 'http://localhost:3000/notes/search-index';
-
 let index;
 
 window.onload = async () => {
@@ -56,6 +54,8 @@ window.onload = async () => {
         });
       })
     });
+
+  connectWithSolidExtension();
 };
 
 async function loadIndex(url) {
@@ -87,5 +87,52 @@ async function loadIndex(url) {
   keys.forEach(key => {
     index.import(key, indexImport[key]);
   });
+}
+
+function connectWithSolidExtension() {
+  // We try to connect to the extension.
+  // Once we are connected we stop trying.
+  // We try at most 15 times.
+  // As far as I know there is no way to detect when the content script of the extension is injected and
+  // has finished running.
+  let counter = 1;
+  const timeoutID = setTimeout(() => {
+    if (counter >= 15) {
+      clearInterval(timeoutID);
+    }
+
+    counter++;
+
+    if (!window.solid) {
+      console.log('Solid Authentication extension not detected.');
+      return;
+    }
+
+    window.solid.onStatusChange(status => {
+      status = JSON.parse(status);
+      showWebID(status.webId);
+    });
+
+    window.solid.getStatus(status => {
+      status = JSON.parse(status);
+      showWebID(status.webId);
+    });
+
+    clearInterval(timeoutID);
+  }, 1000);
+}
+
+function showWebID(webId) {
+  const $webIdContainer = document.getElementById('webid-container');
+  const $notLoggedIn = document.getElementById('webid-not-logged-in');
+  const $webId = document.getElementById('webid');
+  if (webId) {
+    $webIdContainer.classList.remove('hidden');
+    $notLoggedIn.classList.add('hidden');
+    $webId.innerText = webId;
+  } else {
+    $webIdContainer.classList.add('hidden');
+    $notLoggedIn.classList.remove('hidden');
+  }
 }
 

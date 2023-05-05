@@ -1,30 +1,30 @@
 import {QueryEngine} from '@comunica/query-sparql-link-traversal-solid';
-import fetch from 'node-fetch';
 import FlexSearch from "flexsearch";
 const { Index } = FlexSearch;
 import fs from 'fs-extra';
+import {getAuthenticatedFetch} from "./lib/client-credentials.js";
+import path from "path";
 
+const configPath = path.join(process.cwd(), 'config.json');
+const fetch = await getAuthenticatedFetch(configPath);
 const index = new Index();
 
 main();
 
 async function main() {
-  const container = 'http://localhost:3000/notes/';
-  const searchIndexResource = 'http://localhost:3000/notes/search-index';
+  const {container, searchIndexResource} = await fs.readJson(configPath);
   const resources = await getResources(container);
 
   console.log(resources);
 
   for (const resource of resources) {
     const md = await getMarkdown(resource);
-    console.log(md);
-    index.add(resource, md);
+
+    if (md) {
+      index.add(resource, md);
+    }
   }
 
-  console.log(index.search('wooper'));
-  console.log(index.search('test'));
-  console.log(index.search());
-  await exportIndexToFile('search-index.json');
   await exportIndexToResource(searchIndexResource);
 }
 
@@ -37,7 +37,8 @@ SELECT * WHERE {
   <${container}> ldp:contains* ?resource.
 }`, {
     sources: [container],
-    lenient: true
+    lenient: true,
+    fetch
   });
 
   const bindings = await bindingsStream.toArray();

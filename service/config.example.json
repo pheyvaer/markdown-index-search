@@ -1,0 +1,7 @@
+{
+  "serverUrl": "URL of the pod",
+  "email": "email to log in to the pod",
+  "password": "password to log in to the pod",
+  "container": "url of the container where to start looking for Markdown files",
+  "searchIndexResource": "url where the search index is stored afterwards"
+}

@@ -15,10 +15,19 @@
 </head>
 <body>
 <div class="container mt-5">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Markdown search</span>
+
+    <div id="webid-container" class="hidden">Logged in as <span id="webid"></span></div>
+      <div id="webid-not-logged-in" class="hidden">Not logged in.</div>
+    </div>
+  </nav>
+
   <form id="load-index-form" class="mb-2">
     <div class="mb-3">
       <label for="search-index-resource" class="form-label">Search index resource</label>
-      <input type="url" class="form-control" id="search-index-resource" value="http://localhost:3000/notes/search-index">
+      <input type="url" class="form-control" id="search-index-resource" value="http://localhost:3000/ash/notes/search-index">
     </div>
     <button id="load-button" type="submit" class="btn btn-primary">Load</button>
   </form>
