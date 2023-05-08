@@ -1,4 +1,5 @@
 let index;
+let idResourceMap;
 
 window.onload = async () => {
   document.getElementById('load-button')
@@ -23,7 +24,11 @@ window.onload = async () => {
     .addEventListener('click', (e) => {
       e.preventDefault();
       const search = document.getElementById('search-input').value;
-      const results = index.search(search);
+      let results = index.search(search);
+
+      if (idResourceMap) {
+        results = results.map(result => idResourceMap[result]);
+      }
 
       const $ul = document.getElementById('results');
       $ul.innerHTML = '';
@@ -82,6 +87,11 @@ async function loadIndex(url) {
   if (!keys.includes('reg')
     || !keys.includes('cfg')) {
     throw new Error('Loading index failed because index is invalid.');
+  }
+
+  if (keys.includes('idResourceMap')) {
+    idResourceMap = indexImport['idResourceMap'];
+    delete indexImport['idResourceMap'];
   }
 
   keys.forEach(key => {

@@ -8,6 +8,7 @@ import path from "path";
 const configPath = path.join(process.cwd(), 'config.json');
 const fetch = await getAuthenticatedFetch(configPath);
 const index = new Index();
+const idResourceMap = {};
 
 main();
 
@@ -16,12 +17,15 @@ async function main() {
   const resources = await getResources(container);
 
   console.log(resources);
+  let counter = 0;
 
   for (const resource of resources) {
     const md = await getMarkdown(resource);
 
     if (md) {
-      index.add(resource, md);
+      idResourceMap[counter] = resource;
+      index.add(counter, md);
+      counter ++;
     }
   }
 
@@ -98,6 +102,7 @@ function exportIndex() {
     index.export(function(key, data){
       indexExport[key] = data;
       if (Object.keys(indexExport).length === 4) {
+        indexExport['idResourceMap'] = idResourceMap;
         resolve(indexExport);
       }
     });
