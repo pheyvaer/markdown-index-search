@@ -17,7 +17,7 @@ You find the service in the folder `service`.
 
 ## Web app
 
-You fid the Web app in the folder `web-app`.
+You find the Web app in the folder `web-app`.
 
 ## License
 
