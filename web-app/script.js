@@ -2,12 +2,14 @@ let index;
 let idResourceMap;
 
 window.onload = async () => {
+  document.getElementById('search-index-resource').value = getLatestIndexUrl();
   document.getElementById('load-button')
     .addEventListener('click', async (e) => {
       e.preventDefault();
       document.getElementById('search-form').classList.add('hidden');
       document.getElementById('results').classList.add('hidden');
       const resource = document.getElementById('search-index-resource').value;
+      saveLatestIndexUrl(resource);
       try {
         document.getElementById('load-status').innerText = 'Loading...';
         document.getElementById('load-status').classList.remove('hidden');
@@ -146,3 +148,10 @@ function showWebID(webId) {
   }
 }
 
+function getLatestIndexUrl() {
+  return window.localStorage.getItem('latestIndexUrl');
+}
+
+function saveLatestIndexUrl(url) {
+  window.localStorage.setItem('latestIndexUrl', url);
+}
